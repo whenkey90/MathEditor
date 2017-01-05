@@ -16,8 +16,11 @@ var App = {
 		
 		$("#submit-btn").click(function(){
 			alert("Expression : "+ $("#main-text").val());
+			console.log("Expression : "+ $("#main-text").val());
 		});
 	},
+	
+	
 	
 	manageDeleteEquation : function(){
 		$("#delete-btn").click(function(){
