@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div style="width:500px;height:300px" id="editorContainer"></div>
+	<a href="#" class="btn" onclick="App.doGet()">get</a>
+  </body>
+  <script src="script.js"></script>
+  <script src="me_script.js"></script>
+  <script>
+      var editor;
+      window.onload = function () {
+        editor = com.wiris.jsEditor.JsEditor.newInstance({
+          'language': 'en'
+        });
+        editor.insertInto(document.getElementById('editorContainer'));
+      }
+    </script>
+
+</html>

@@ -49,5 +49,12 @@ var App = {
 
     getMathKey : function(key){
         return '<math xmlns="http://www.w3.org/1998/Math/MathML">'+ key + '</math>'
-    }
+    },
+
+	doSet : function () {
+      editor.setMathML("<math><mfrac><mn>1</mn><mi>x</mi></mfrac></math>");
+    },
+	doGet : function (){
+      alert(editor.getMathML());
+    },
 }
