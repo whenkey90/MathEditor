@@ -2,89 +2,101 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="style.css">
-
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="mathquill.css"/>
+		<script src="jquery.min.js"></script>
 		<script src="script.js"></script>
-		<style>
-
-		</style>
+		<script src="mathquill.js"></script>
 	</head>
 	<body>
-		<center>
-			<div id="main-text" contenteditable="true"></div>
-			<button class="btn" id="submit-btn">Submit</button>
-			<button class="btn" id="delete-btn">Delete</button>
-			<br/>
-			<br/>
-			<table>
-				<tr>
-					<td><input class="char-btn" type="button" data-char="7" value="7"/></td>
-					<td><input class="char-btn" type="button" data-char="8" value="8"/></td>
-					<td><input class="char-btn" type="button" data-char="9" value="9"/></td>
-					<td><input class="char-btn" type="button" data-char="/" value="/"/></td>
-					<td><input class="char-btn" type="button" data-char="." value="."/></td>
-					<td><input class="char-btn" type="button" data-char="&#8707;" value="&#8707;"/></td>
-					<td><input class="char-btn" type="button" data-char="&#8730;" value="&#8730;"/></td>
-					<td><input class="char-btn" type="button" data-char="&#8745;" value="&#8745;"/></td>
-				</tr>
-				<tr>
-					<td><input class="char-btn" type="button" data-char="4" value="4"/></td>
-					<td><input class="char-btn" type="button" data-char="5" value="5"/></td>
-					<td><input class="char-btn" type="button" data-char="6" value="6"/></td>						
-					<td><input class="char-btn" type="button" data-char="*" value="*"/></td>						
-					<td><input class="char-btn" type="button" data-char="&#163;" value="&#163;"/></td>						
-					<td><input class="char-btn" type="button" data-char="&#8706;" value="&#8706;"/></td>
-					<td><input class="char-btn" type="button" data-char="&#8723;" value="&#8723;"/></td>
-					<td><input class="char-btn" type="button" data-char="&#8732;" value="&#8732;"/></td>
-				</tr>
-				<tr>
-					<td><input class="char-btn" type="button" data-char="1" value="1"/></td>
-					<td><input class="char-btn" type="button" data-char="2" value="2"/></td>
-					<td><input class="char-btn" type="button" data-char="3" value="3"/></td>						
-					<td><input class="char-btn" type="button" data-char="+" value="+"/></td>						
-					<td><input class="char-btn" type="button" data-char="&Sigma;" value="&Sigma;"/></td>
-					<td><input class="char-btn" type="button" data-char="&#8705;" value="&#8705;"/></td>
-					<td><input class="char-btn" type="button" data-char="&#8709;" value="&#8709;"/></td>
-					<td><input class="char-btn" type="button" data-char="&#8708;" value="&#8708;"/></td>
-				</tr>
-				<tr>
-					<td><input class="char-btn" type="button" data-char="," value=","/></td>
-					<td><input class="char-btn" type="button" data-char="0" value="0"/></td>
-					<td><input class="char-btn" type="button" data-char="." value="."/></td>						
-					<td><input class="char-btn" type="button" data-char="-" value="-"/></td>						
-					<td><input class="char-btn" type="button" data-char="&pi;" value="&pi;"/></td>
-					<td><input class="char-btn" type="button" data-char="&forall;" value="&forall;"/></td>
-					<td><input class="char-btn" type="button" data-char="&#8708;" value="&#8708;"/></td>
-					<td><input class="char-btn" type="button" data-char="&#8731;" value="&#8731;"/></td>
-				</tr>
-			</table>
- 			<input class="char-btn" type="button" data-char="&#8746;" value="&#8746;"/>
-			<input class="char-btn" type="button" data-char="&#8747;" value="&#8747;"/>
-			<input class="char-btn" type="button" data-char="&#8748;" value="&#8748;"/>
-			<input class="char-btn" type="button" data-char="a2b2" value="a2b2"/>
-			<input class="char-btn" type="button" data-char="a2b3" value="A=[]"/>
-			<br/>
-			<input class="char-btn" type="button" data-char="open" value="("/>
-			<input class="char-btn" type="button" data-char="close" value=")"/>
-			<input class="char-btn" type="button" data-char="w" value="W"/>
-			<input class="char-btn" type="button" data-char="x" value="X"/>
-			<input class="char-btn" type="button" data-char="y" value="Y"/>
-			<input class="char-btn" type="button" data-char="z" value="Z"/>
-			<h1>ICONS START</h1>
-			<div class="char-btn" data-char="-">
-				<span class="icon-line"></span>
-			</div>
-			<div class="char-btn" data-char="+">
-				<span class="icon-signs"></span>
-			</div>
-			<div class="char-btn" data-char="area"><img src=images/triangle.png style="width:30px;height:30px;">
-				<span class="icon-triangle"></span>
-			</div>
-			<div class="char-btn" data-char="rectarea"><img src=images/rectangle.png style="width:30px;height:30px;">
-				<span class="icon-rect"></span></div>
-			<h1>ICONS END</h1>
-		</center>
+	<center>
+		
+		<span id="main-span" style="display:none"></span>
+		<p>Type math here: <span id="math-field"></span></p>
+		<button class="btn" id="submit-btn">Submit</button>
+		<button class="btn" id="delete-btn">Delete</button>
+		<br/>
+		<br/>
+		<table>
+			<tr>
+				<td><input class="char-btn" type="button" data-char="\pm" value="pm"/></td>
+				<td><input class="char-btn" type="button" data-char="\sqrt{x}" value="sqrt"/></td>
+				<td><input class="char-btn" type="button" data-char="7" value="7"/></td>
+				<td><input class="char-btn" type="button" data-char="8" value="8"/></td>
+				<td><input class="char-btn" type="button" data-char="9" value="9"/></td>
+				<td><input class="char-btn" type="button" data-char="/" value="/"/></td>
+				<td><input class="char-btn" type="button" data-char="." value="."/></td>
+				<td><input class="char-btn" type="button" data-char="&#8707;" value="&#8707;"/></td>
+				<td><input class="char-btn" type="button" data-char="&#8730;" value="&#8730;"/></td>
+				<td><input class="char-btn" type="button" data-char="&#8745;" value="&#8745;"/></td>
+			</tr>
+			<tr>
+				<td><input class="char-btn" type="button" data-char="4" value="4"/></td>
+				<td><input class="char-btn" type="button" data-char="5" value="5"/></td>
+				<td><input class="char-btn" type="button" data-char="6" value="6"/></td>
+				<td><input class="char-btn" type="button" data-char="*" value="*"/></td>
+				<td><input class="char-btn" type="button" data-char="&#163;" value="&#163;"/></td>
+				<td><input class="char-btn" type="button" data-char="&#8706;" value="&#8706;"/></td>
+				<td><input class="char-btn" type="button" data-char="&#8723;" value="&#8723;"/></td>
+				<td><input class="char-btn" type="button" data-char="&#8732;" value="&#8732;"/></td>
+			</tr>
+			<tr>
+				<td><input class="char-btn" type="button" data-char="1" value="1"/></td>
+				<td><input class="char-btn" type="button" data-char="2" value="2"/></td>
+				<td><input class="char-btn" type="button" data-char="3" value="3"/></td>
+				<td><input class="char-btn" type="button" data-char="+" value="+"/></td>
+				<td><input class="char-btn" type="button" data-char="&Sigma;" value="&Sigma;"/></td>
+				<td><input class="char-btn" type="button" data-char="&#8705;" value="&#8705;"/></td>
+				<td><input class="char-btn" type="button" data-char="&#8709;" value="&#8709;"/></td>
+				<td><input class="char-btn" type="button" data-char="&#8708;" value="&#8708;"/></td>
+			</tr>
+			<tr>
+				<td><input class="char-btn" type="button" data-char="," value=","/></td>
+				<td><input class="char-btn" type="button" data-char="0" value="0"/></td>
+				<td><input class="char-btn" type="button" data-char="." value="."/></td>
+				<td><input class="char-btn" type="button" data-char="-" value="-"/></td>
+				<td><input class="char-btn" type="button" data-char="&pi;" value="&pi;"/></td>
+				<td><input class="char-btn" type="button" data-char="&forall;" value="&forall;"/></td>
+				<td><input class="char-btn" type="button" data-char="&#8708;" value="&#8708;"/></td>
+				<td><input class="char-btn" type="button" data-char="&#8731;" value="&#8731;"/></td>
+			</tr>
+		</table>
+		<input class="char-btn" type="button" data-char="&#8746;" value="&#8746;"/>
+		<input class="char-btn" type="button" data-char="&#8747;" value="&#8747;"/>
+		<input class="char-btn" type="button" data-char="&#8748;" value="&#8748;"/>
+		<input class="char-btn" type="button" data-char="a2b2" value="a2b2"/>
+		<input class="char-btn" type="button" data-char="a2b3" value="A=[]"/>
+		<br/>
+		<input class="char-btn" type="button" data-char="(" value="("/>
+		<input class="char-btn" type="button" data-char=")" value=")"/>
+		<input class="char-btn" type="button" data-char="w" value="W"/>
+		<input class="char-btn" type="button" data-char="x" value="X"/>
+		<input class="char-btn" type="button" data-char="y" value="Y"/>
+		<input class="char-btn" type="button" data-char="z" value="Z"/>
+		<h1>ICONS START</h1>
+		<div class="char-btn" data-char="-">
+			<span class="icon-line"></span>
+		</div>
+		<div class="char-btn" data-char="+">
+			<span class="icon-signs"></span>
+		</div>
+		<h1>ICONS END</h1>
+	</center>
 	</body>
+	<script>
+    var mathFieldSpan = document.getElementById('math-field');
+    var latexSpan = document.getElementById('latex');
+
+    var MQ = MathQuill.getInterface(2); // for backcompat
+
+    var mathField = MQ.MathField(mathFieldSpan, {
+      spaceBehavesLikeTab: true, // configurable
+      handlers: {
+        edit: function() { // useful event handlers
+          latexSpan.textContent = mathField.latex(); // simple API
+        }
+      }
+    });
+    </script>
 	<script>
 	$(document).ready(function(){
 		App.init();

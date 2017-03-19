@@ -12,24 +12,50 @@ var charObj = {
     "y": '<mi contentEditable="true">Y</mo>',
     "z": '<mi contentEditable="true">Z</mo>',
     };
+	
+var keys = [];
 
 var App = {
     init: function() {
+        App.initMath();
         App.manageKeys();
         App.manageDeleteEquation();
     },
 
+	initMath : function(){
+		var MQ = MathQuill.getInterface(2); // for backcompat
+		var mathFieldSpan = document.getElementById('math-field');
+		var latexSpan = document.getElementById('latex');
+	    var mathField = MQ.MathField(mathFieldSpan, {
+		  spaceBehavesLikeTab: true, // configurable
+		  handlers: {
+			edit: function() { // useful event handlers
+			  latexSpan.textContent = mathField.latex(); // simple API
+			}
+		  }
+		});  
+
+	},
     manageKeys: function() {
         var selector = $(".char-btn");
         selector.each(function() {
             var self = $(this);
             self.click(function() {
+                var $element = $("#math-field");
                 var data = self.attr("data-char");
-                if (charObj.hasOwnProperty(data)) {
-                    $("#main-text").append(App.getMathKey(charObj[data]));
-                } else {
-                    $("#main-text").append(data);
-                }
+				keys.push(data);
+//                if (charObj.hasOwnProperty(data)) {
+//                    $("#main-text").append(App.getMathKey(charObj[data]));
+//                } else {
+//                    $("#main-text").append(data);
+//                }
+				console.log($element.text());
+				$element.text($element.text()+data);
+				//App.insertAtCaret("math-field");
+				App.initMath();
+				//$("#math-field").addClass("mq-focused");
+				//$(".mq-root-block").addClass("mq-hasCursor");
+				//$(".mq-root-block").append("<span class=\"mq-cursor\">&#8203</span>");
 
             });
         });
@@ -38,6 +64,43 @@ var App = {
             alert("Expression : " + $("#main-text").html());
         });
     },
+	
+	insertAtCaret : function (areaId, text) {
+		var txtarea = document.getElementById(areaId);
+		if (!txtarea) { return; }
+
+		var scrollPos = txtarea.scrollTop;
+		var strPos = 0;
+		var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ?
+			"ff" : (document.selection ? "ie" : false ) );
+		if (br == "ie") {
+			txtarea.focus();
+			var range = document.selection.createRange();
+			range.moveStart ('character', -txtarea.value.length);
+			strPos = range.text.length;
+		} else if (br == "ff") {
+			strPos = txtarea.selectionStart;
+		}
+
+		var front = (txtarea.value).substring(0, strPos);
+		var back = (txtarea.value).substring(strPos, txtarea.value.length);
+		txtarea.value = front + text + back;
+		strPos = strPos + text.length;
+		if (br == "ie") {
+			txtarea.focus();
+			var ieRange = document.selection.createRange();
+			ieRange.moveStart ('character', -txtarea.value.length);
+			ieRange.moveStart ('character', strPos);
+			ieRange.moveEnd ('character', 0);
+			ieRange.select();
+		} else if (br == "ff") {
+			txtarea.selectionStart = strPos;
+			txtarea.selectionEnd = strPos;
+			txtarea.focus();
+		}
+
+		txtarea.scrollTop = scrollPos;
+	},
 
     manageDeleteEquation: function() {
         $("#delete-btn").click(function() {

@@ -2,21 +2,48 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <!--Math Quill-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="mathquill.css"/>
+    <script src="mathquill.js"></script>
+
   </head>
   <body>
-    <div style="width:500px;height:300px" id="editorContainer"></div>
-	<a href="#" class="btn" onclick="App.doGet()">get</a>
+	<!--<span id="main-span" style="display:none"></span>-->
+    <p><span id="math-field"></span></p>
+	<br/>
+    <p>LaTeX : <span id="latex"></span></p>
+    <!-- <div style="width:500px;height:300px" id="editorContainer"></div> -->
+	<!-- <a href="#" class="btn" onclick="App.doGet()">get</a> -->
+    <table>
+		<tr>
+			<td><input class="char-btn" type="button" data-char="\pm" value="pm"/></td>
+			<td><input class="char-btn" type="button" data-char="\sqrt{?}" value="sqrt"/></td>
+			<td><input class="char-btn" type="button" data-char="\frac{?}{?}" value="/"/></td>
+			<td><input class="char-btn" type="button" data-char="^" value="power"/></td>
+			<td><input class="char-btn" type="button" data-char="\cdot" value="."/></td>
+			<td><input class="char-btn" type="button" data-char="\le" value="<="/></td>
+			<td><input class="char-btn" type="button" data-char="\ge" value=">="/></td>
+		</tr>
+	</table>
+
   </body>
   <script src="script.js"></script>
-  <script src="me_script.js"></script>
+  <!-- <script src="me_script.js"></script> -->
+  
   <script>
-      var editor;
-      window.onload = function () {
-        editor = com.wiris.jsEditor.JsEditor.newInstance({
-          'language': 'en'
-        });
-        editor.insertInto(document.getElementById('editorContainer'));
-      }
-    </script>
+	$(document).ready(function(){
+		App.init();
+	});
+	</script>
+  <!-- <script> -->
+      <!-- var editor; -->
+      <!-- window.onload = function () { -->
+        <!-- editor = com.wiris.jsEditor.JsEditor.newInstance({ -->
+          <!-- 'language': 'en' -->
+        <!-- }); -->
+        <!-- editor.insertInto(document.getElementById('editorContainer')); -->
+      <!-- } -->
+    <!-- </script> -->
 
 </html>
