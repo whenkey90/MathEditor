@@ -33,8 +33,48 @@ var App = {
 			  latexSpan.textContent = mathField.latex(); // simple API
 			}
 		  }
-		});  
+		});
+		//End
+		
+	  //var fillInTheBlank = MQ.StaticMath(document.getElementById('fill-in-the-blank'));
+	  //fillInTheBlank.innerFields[0].latex() // => 'x'
+	  //fillInTheBlank.innerFields[1].latex() // => 'y'
+	  //var mathField1 =  MQ.mathField($("#fill-in-the-blank")[0]);
+	  //mathField1.focus();
+	  var mathFieldSpan = $("#fill-in-the-blank");
+		console.log(mathFieldSpan);
+		console.log(mathFieldSpan[0]);
+		console.log(mathFieldSpan[1]);
+		var mathField = MQ.MathField(mathFieldSpan[0]);
+		console.log(mathField);
+//		mathFieldSpan.appendTo(document.body);
+		//mathField.focus();
+		var x1 = $("var mathquill-command-id");
+		// var mathField = MQ.MathField(x1);
+		// mathField.focus();
+		var parent = document.getElementsByTagName('var')[0];
+		// getElementsByAttribute('mathquill-command-id', parent);
+		console.log();
+		console.log(x1);
+		console.log(x1[0]);
+		function getElementsByAttribute(attribute, context) {
+		  var nodeList = (context || document).getElementsByTagName('*');
+		  var nodeArray = [];
+		  var iterator = 0;
+		  var node = null;
 
+		  while (node = nodeList[iterator++]) {
+			if (node.getAttribute(attribute)) nodeArray.push(node);
+		  }
+		  return nodeArray;
+		}
+		var mathFieldSpan = $(getElementsByAttribute('mathquill-command-id')[2]);
+		var mathField = MQ.MathField(mathFieldSpan[0]);
+		mathField.focus();
+		
+		//mathFieldSpan.appendTo(document.body);
+		//mathField.reflow();
+		
 	},
     manageKeys: function() {
         var selector = $(".char-btn");
