@@ -13,7 +13,20 @@ var charObj = {
     "z": '<mi contentEditable="true">Z</mo>',
     };
 	
-var keys = [];
+var keys = {
+	'power' : '\pm',
+	'sqrt' : '\sqrt',
+	'frac' : '\frac',
+	'cdot' : '\cdot',
+	'lt' : '\lt',
+	'gt' : '\gt',
+	'le' : '\le',
+	'ge' : '\ge',
+	'space' : '\qquad',
+	'backspace' : 'Backspace',
+	
+	
+};
 var MQ = MathQuill.getInterface(2); 
 var App = {
     init: function() {
@@ -29,6 +42,7 @@ var App = {
 	    var mathField = MQ.MathField(mathFieldSpan, {
 		  spaceBehavesLikeTab: true, // configurable
 		  handlers: {
+		    spaceBehavesLikeTab : false,
 			edit: function() { // useful event handlers
 			  latexSpan.textContent = mathField.latex(); // simple API
 			}
@@ -43,8 +57,11 @@ var App = {
             self.click(function() {
                 var $element = $("#math-field");
                 var data = self.attr("data-char");
-				keys.push(data);
 				var mathField = MQ.MathField($element[0]);
+				if(data === '\\bs'){
+					mathField.keystroke("Backspace");
+					return;
+				}
 				mathField.cmd(data);
 				mathField.focus();
 			});
