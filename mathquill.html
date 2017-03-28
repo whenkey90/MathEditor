@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+
+    <!--Math Quill-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="mathquill.css"/>
+    <script src="mathquill.js"></script>
+    <script src="mathjax.js"></script>
+    <script src="TeXZilla-min.js"></script>
+    <script src="myscript.js"></script>
+</head>
+<body>
+<p>
+    Welcome to OMTutor.
+</p>
+
+<p>
+    Solve <span id="problem">ax^2 + bx + c = 0</span>.
+    <br>
+    The answer is: <span id="solution">
+				<math xmlns="http://www.w3.org/1998/Math/MathML">
+					<semantics>
+						<mrow>
+							<mi>
+								x
+							</mi>
+							<mo>
+								=
+							</mo>
+							<mfrac>
+								<mrow>
+									<mo>
+										-
+									</mo>
+									<mi>
+										b
+									</mi>
+									<mo>
+										±
+									</mo>
+									<msqrt>
+										<mrow>
+											<msup>
+												<mi>
+													b
+												</mi>
+												<mn>
+													2
+												</mn>
+											</msup>
+											<mo>
+												-
+											</mo>
+											<mn>
+												4
+											</mn>
+											<mi>
+												a
+											</mi>
+											<mi>
+												c
+											</mi>
+										</mrow>
+									</msqrt>
+								</mrow>
+								<mrow>
+									<mn>
+										2
+									</mn>
+									<mi>
+										a
+									</mi>
+								</mrow>
+							</mfrac>
+						</mrow>
+						<annotation encoding="TeX">
+							x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+						</annotation>
+					</semantics>
+				</math> </span>
+</p>
+<script>
+			var problemSpan = document.getElementById('problem');
+			MQ.StaticMath(problemSpan);
+		</script>
+<p>
+    <b>Type Answer Here:</b><span id="math-field"></span>
+<div class="controls">
+    <a href="#" id="mp" class="btn fl">
+        <math>
+            <mo>
+                ∓
+            </mo>
+        </math></a>
+    <a href="#" id="pm" class="btn fl">
+        <math>
+            <mo>
+                ±
+            </mo>
+        </math></a>
+    <a href="#" id="sqrt" class="btn fl">
+        <math>
+            <msqrt></msqrt>
+        </math></a>
+    <a href="#" id="square" class="btn fl">SQUARE</a>
+    <a href="#" id="power" class="btn fl">POWER</a>
+    <a href="#" id="denom" class="btn fl">Denominator</a>
+    <a href="#" id="open" class="btn f1">
+        <math>
+            <mo>
+                []
+            </mo>
+        </math>
+    </a>
+    <a href="#" id="braces" class="btn f1">()</a>
+    <a href="#" id="space" class="btn f1">space</a>
+    <a href="#" id="backspace" class="btn f1">X</a>
+    <br/><br/>
+    <a href="#" id="seven" class="btn f1">seven</a>
+</div>
+</p>
+<p>
+    <b>LaTeX of what you typed:</b>
+    <br>
+    <code id="latex">
+    </code>
+</p>
+<p>
+    <b>MathML of what you typed:</b>
+    <br>
+    <code id="result-mathml">
+    </code>
+</p>
+<p>
+    <b>Static MathML:</b><span id="static-math"></span>
+</p>
+
+
+</body>
+<script src="js/script.js"></script>
+<script>
+        $(document).ready(function(){
+        App.init();
+        });
+    </script>
+
+</html>
