@@ -1,29 +1,37 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
   <head>
+	  <title>Math Editor</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <!--Math Quill-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link rel="stylesheet" href="mathquill.css"/>
     <script src="mathquill.js"></script>
+	<script src="https://www.w3schools.com/lib/w3data.js"></script>
 
   </head>
   <body>
+  	<select id="math-options">
+		<option value="basic" >Basic Math</option>
+		<option value="algebra">Algebra</option>
+		<option value="calculus">Calculus</option>
+	</select>
 	<!--<span id="main-span" style="display:none"></span>-->
-    <p><span id="math-field"></span></p>
+	<div id="include-html" w3-include-html="basic.html"></div>
+	<p><span id="math-field"></span></p>
 	<br/>
     <p>LaTeX : <span id="latex"></span></p>
     <!-- <div style="width:500px;height:300px" id="editorContainer"></div> -->
 	<!-- <a href="#" class="btn" onclick="App.doGet()">get</a> -->
     <table>
 		<tr>
-			<td><span class="char-btn" data-char="\pm">pm</span></td>
-			<td><span class="char-btn" data-char="\sqrt">sqrt</span></td>
-			<td><span class="char-btn" data-char="\frac" >/</span></td>
-			<td><span class="char-btn" data-char="^">^</span></td>
-			<td><span class="char-btn" data-char="\cdot" >.</span></td>
-			<td><span class="char-btn" data-char="\le" ><</span></td>
-			<td><span class="char-btn" data-char="\ge">></span></td>
+			<td><span class="char-btn" data-char="plusminus">pm</span></td>
+			<td><span class="char-btn" data-char="sqrt">sqrt</span></td>
+			<td><span class="char-btn" data-char="frac" >/</span></td>
+			<td><span class="char-btn" data-char="power">^</span></td>
+			<td><span class="char-btn" data-char="cdot" >.</span></td>
+			<td><span class="char-btn" data-char="le" ><</span></td>
+			<td><span class="char-btn" data-char="ge">></span></td>
 		</tr>
 		<tr>
 			<td><span class="char-btn"  data-char="\qquad">space</span></td>

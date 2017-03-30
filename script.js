@@ -14,9 +14,10 @@ var charObj = {
     };
 	
 var keys = {
-	'power' : '\pm',
+	'plusminus' : '\pm',
 	'sqrt' : '\sqrt',
-	'frac' : '\frac',
+	'frac' : '/',
+	'power' : '^',
 	'cdot' : '\cdot',
 	'lt' : '\lt',
 	'gt' : '\gt',
@@ -33,6 +34,8 @@ var App = {
         App.initMath();
         App.manageKeys();
         App.manageDeleteEquation();
+        w3IncludeHTML();
+        App.manageMathOptions();
     },
 
 	initMath : function(){
@@ -127,5 +130,11 @@ var App = {
     },
 	doGet : function (){
       alert(editor.getMathML());
+    },
+	manageMathOptions : function (){
+	    $("#math-options").change(function(){
+	        var self = $(this);
+	        $("#include-html").load(self.val()+".html");
+	    });
     },
 }
