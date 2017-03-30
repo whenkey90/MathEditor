@@ -56,7 +56,8 @@ var App = {
             var self = $(this);
             self.click(function() {
                 var $element = $("#math-field");
-                var data = self.attr("data-char");
+                //TODO In html maintain the data-char and keys object key as same and value with latex code
+                var data = keys[self.attr("data-char")];
 				var mathField = MQ.MathField($element[0]);
 				if(data === '\\bs'){
 					mathField.keystroke("Backspace");
