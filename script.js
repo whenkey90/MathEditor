@@ -14,8 +14,9 @@ var charObj = {
     };
 	
 var keys = {
-	'plusminus' : '\pm',
 	'sqrt' : '\sqrt',
+	'plusminus' : '\pm',
+	'minusplus' : '\mp',
 	'frac' : '/',
 	'power' : '^',
 	'cdot' : '\cdot',
@@ -32,6 +33,19 @@ var keys = {
 	'{' : '{',
 	'}' : '}',
 	'alpha' : '\alpha',
+	'delta' : '\delta',
+	'gamma' : '\gamma',
+	'epsilon': '\epsilon',
+	'9' : '9',
+	'8' : '8',
+	'7' : '7',
+	'6' : '6',
+	'5' : '5',
+	'4' : '4',
+	'3' : '3',
+	'2' : '2',
+	'1' : '1',
+	'0' : '0',
 
 };
 var MQ = MathQuill.getInterface(2); 
