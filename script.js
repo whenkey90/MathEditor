@@ -31,16 +31,16 @@ var keys = {
 	')' : ')',
 	'{' : '{',
 	'}' : '}',
-	
-	
+	'alpha' : '\alpha',
+
 };
 var MQ = MathQuill.getInterface(2); 
 var App = {
     init: function() {
+        $("#include-html").load("basic.html");
         App.initMath();
         App.manageKeys();
         App.manageDeleteEquation();
-        w3IncludeHTML();
         App.manageMathOptions();
     },
 

@@ -3,12 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Basic</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <!--Math Quill-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="mathquill.css"/>
-    <script src="mathquill.js"></script>
-
 </head>
 <body>
 <h1>Basic Math Code</h1>
@@ -36,11 +30,10 @@
         <td><span class="char-btn" data-char="3">3</span></td>
 </table>
 </body>
-<script src="script.js"></script>
 <script>
-        $(document).ready(function(){
-        App.init();
-        });
-    </script>
+    $(document).ready(function(){
+        App.manageKeys();
+    });
+</script>
 
 </html>
