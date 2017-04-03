@@ -1,3 +1,19 @@
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+}
+
+div.tab button{
+display:block;
+margin:10px;
+}
+
+div.tabcontent{
+	display:none;
+}
+
 .char-btn {
   display: inline-block;
   padding: 15px 25px;

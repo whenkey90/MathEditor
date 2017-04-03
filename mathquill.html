@@ -1,147 +1,150 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
+	<title>Math Editor</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<!--Math Quill-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full"></script>
+	<link rel="stylesheet" href="mathquill.css"/>
+	<script src="mathquill.js"></script>
+	<script src="mathjax.js"></script>
+	<script src="tomathml.js"></script>
+	<script src="TexZilla-min.js"></script>
+	<script>
+			var MQ = MathQuill.getInterface(2);
+			var lineCounter = 0;
+			var lineArray = new Array(50);
+		</script>
+	<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+			tex2jax: {inlineMath: [["$","$"],["\\\\(","\\\\)"]]}
+			});
+			MathJax.Hub.Queue(
+			function () {
+			var jax = MathJax.Hub.getAllJax();
+			for (var i = 0; i < jax.length; i++) {
+			toMathML(jax[i],function (mml) {
+			// alert(jax[i].originalText + "\n\n=>\n\n"+ mml);
+			});
+			}
+			}
+			);
+		</script>
 
-    <!--Math Quill-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="mathquill.css"/>
-    <script src="mathquill.js"></script>
-    <script src="mathjax.js"></script>
-    <script src="TeXZilla-min.js"></script>
-    <script src="myscript.js"></script>
 </head>
 <body>
+<p>LaTeX : <span id="latex"></span></p>
+<form>
+	select your keyboardtype:
+	<select id="math-options">
+		<option value="basic" >Basic Math</option>
+		<option value="algebra">Algebra</option>
+		<option value="calculus">Calculus</option>
+	</select>
+</form>
+<!--<span id="main-span" style="display:none"></span>-->
+<p><span id="math-field"></span></p>
+<div id="include-html"></div>
+<br/>
+<div class="flex-container">
+	<div class="tab">
+		<button  onclick="showContent('textline')">Text</button>
+		<button  onclick="showContent('controls')">Formula</button>
+		<button onclick="showContent('shapes')">Shapes</button>
+	</div>
+
+	<div class="tabcontent textline">
+		<b>Text line: Enter text here (one problem line at a time; press Add line to Problem Composition)</b>
+		<br>
+		<textarea cols="50" id="textlines"></textarea>
+		<a href="#" id="textact">Add a line of text to Problem Composition</a>
+	</div>
+	<br>
+	<div class="tabcontent controls">
+		<b>Math Formula Here:</b><span id="math-field1"></span>
+		<a href="#" id="addformula">Add Formula to Problem Composition</a>
+		<br>
+		<a href="#" id="pm" class="fl">
+			<math>
+				<mo>
+					±
+				</mo>
+			</math></a>
+		<a href="#" id="sqrt" class="fl">
+			<math>
+				<msqrt></msqrt>
+			</math></a>
+		<a href="#" id="square" class="fl">SQUARE</a>
+		<a href="#" id="power" class="fl">POWER</a>
+		<a href="#" id="denom" class="fl">Denominator</a>
+	</div>
+	<div class="tabcontent shapes">
+		<b>Geometric Shape Editor:</b>
+		<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;display:block;"></canvas>
+		<a href="#" id="addshape">Add geometric shape to Problem Composition</a>
+		<br>
+	</div>
+</div>
 <p>
-    Welcome to OMTutor.
+	<b>LaTeX of what you typed:</b>
+	<br>
+	<code id="latex1">
+	</code>
+</p>
+<p>
+	<b>MathML of what you typed:</b>
+	<br>
+	<code id="result-mathml">
+	</code>
+</p>
+<p>
+	<b>Static MathML:</b><span id="static-math"></span>
 </p>
 
+<hr>
+
 <p>
-    Solve <span id="problem">ax^2 + bx + c = 0</span>.
-    <br>
-    The answer is: <span id="solution">
-				<math xmlns="http://www.w3.org/1998/Math/MathML">
-					<semantics>
-						<mrow>
-							<mi>
-								x
-							</mi>
-							<mo>
-								=
-							</mo>
-							<mfrac>
-								<mrow>
-									<mo>
-										-
-									</mo>
-									<mi>
-										b
-									</mi>
-									<mo>
-										±
-									</mo>
-									<msqrt>
-										<mrow>
-											<msup>
-												<mi>
-													b
-												</mi>
-												<mn>
-													2
-												</mn>
-											</msup>
-											<mo>
-												-
-											</mo>
-											<mn>
-												4
-											</mn>
-											<mi>
-												a
-											</mi>
-											<mi>
-												c
-											</mi>
-										</mrow>
-									</msqrt>
-								</mrow>
-								<mrow>
-									<mn>
-										2
-									</mn>
-									<mi>
-										a
-									</mi>
-								</mrow>
-							</mfrac>
-						</mrow>
-						<annotation encoding="TeX">
-							x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
-						</annotation>
-					</semantics>
-				</math> </span>
-</p>
-<script>
-			var problemSpan = document.getElementById('problem');
-			MQ.StaticMath(problemSpan);
-		</script>
-<p>
-    <b>Type Answer Here:</b><span id="math-field"></span>
-<div class="controls">
-    <a href="#" id="mp" class="btn fl">
-        <math>
-            <mo>
-                ∓
-            </mo>
-        </math></a>
-    <a href="#" id="pm" class="btn fl">
-        <math>
-            <mo>
-                ±
-            </mo>
-        </math></a>
-    <a href="#" id="sqrt" class="btn fl">
-        <math>
-            <msqrt></msqrt>
-        </math></a>
-    <a href="#" id="square" class="btn fl">SQUARE</a>
-    <a href="#" id="power" class="btn fl">POWER</a>
-    <a href="#" id="denom" class="btn fl">Denominator</a>
-    <a href="#" id="open" class="btn f1">
-        <math>
-            <mo>
-                []
-            </mo>
-        </math>
-    </a>
-    <a href="#" id="braces" class="btn f1">()</a>
-    <a href="#" id="space" class="btn f1">space</a>
-    <a href="#" id="backspace" class="btn f1">X</a>
-    <br/><br/>
-    <a href="#" id="seven" class="btn f1">seven</a>
-</div>
-</p>
-<p>
-    <b>LaTeX of what you typed:</b>
-    <br>
-    <code id="latex">
-    </code>
-</p>
-<p>
-    <b>MathML of what you typed:</b>
-    <br>
-    <code id="result-mathml">
-    </code>
-</p>
-<p>
-    <b>Static MathML:</b><span id="static-math"></span>
+	<b>Problem: Text lines, formulas, or geometric shapes can be added to the problem, one at a time, until complete problem is composed. </b>
+	<span id="problem-display"></span>
 </p>
 
 
 </body>
-<script src="js/script.js"></script>
+<script>
+  var answerSpan = document.getElementById('math-field1');
+			var latexSpan = document.getElementById('latex1');
+			var staticMath = document.getElementById('static-math');
+			var resultMathML = document.getElementById('result-mathml');
+
+			var MQ = MathQuill.getInterface(2);
+			var answerMathField = MQ.MathField(answerSpan, {
+				spaceBehavesLikeTab : true,
+				handlers : {
+					edit : function() {
+						var latexString = answerMathField.latex();
+						latexSpan.textContent = latexString;
+						var MathMLString = TeXZilla.toMathMLString(latexString);
+						resultMathML.textContent = MathMLString;
+						staticMath.textContent = latexString;
+						MQ.StaticMath(staticMath);
+					}
+				}
+			});
+
+  			function showContent(content) {
+					var i, tabcontent;
+					tabcontent = document.getElementsByClassName("tabcontent");
+					for (i = 0; i < tabcontent.length; i++) {
+						tabcontent[i].style.display = "none";
+					}
+					document.getElementsByClassName(content)[0].style.display = "block";
+				}
+		</script>
+<script src="myscript.js"></script>
 <script>
         $(document).ready(function(){
-        App.init();
+        	App.init();
         });
     </script>
 
