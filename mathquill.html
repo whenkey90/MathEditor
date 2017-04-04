@@ -34,18 +34,10 @@
 
 </head>
 <body>
-<p>LaTeX : <span id="latex"></span></p>
-<form>
-	select your keyboardtype:
-	<select id="math-options">
-		<option value="basic" >Basic Math</option>
-		<option value="algebra">Algebra</option>
-		<option value="calculus">Calculus</option>
-	</select>
-</form>
+<!---<p>LaTeX : <span id="latex"></span></p>--->
 <!--<span id="main-span" style="display:none"></span>-->
-<p><span id="math-field"></span></p>
-<div id="include-html"></div>
+<!----<p><span id="math-field"></span></p>--->
+
 <br/>
 <div class="flex-container">
 	<div class="tab">
@@ -63,6 +55,15 @@
 	<br>
 	<div class="tabcontent controls">
 		<b>Math Formula Here:</b><span id="math-field1"></span>
+		<form>
+			select your keyboardtype:
+			<select id="math-options">
+				<option value="basic" >Basic Math</option>
+				<option value="algebra">Algebra</option>
+				<option value="calculus">Calculus</option>
+			</select>
+		</form>
+		<div id="include-html"></div>
 		<a href="#" id="addformula">Add Formula to Problem Composition</a>
 		<br>
 		<a href="#" id="pm" class="fl">

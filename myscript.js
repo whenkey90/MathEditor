@@ -167,8 +167,8 @@ var App = {
 
 	initMath : function(){
 		var MQ = MathQuill.getInterface(2); // for backcompat
-		var mathFieldSpan = document.getElementById('math-field');
-		var latexSpan = document.getElementById('latex');
+		var mathFieldSpan = document.getElementById('math-field1');
+		var latexSpan = document.getElementById('latex1');
 	    var mathField = MQ.MathField(mathFieldSpan, {
 		  spaceBehavesLikeTab: true, // configurable
 		  handlers: {
@@ -185,7 +185,7 @@ var App = {
         selector.each(function() {
             var self = $(this);
             self.click(function() {
-                var $element = $("#math-field");
+                var $element = $("#math-field1");
                 //TODO In html maintain the data-char and keys object key as same and value with latex code
                 var data = keys[self.attr("data-char")];
 				var mathField = MQ.MathField($element[0]);
