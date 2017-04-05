@@ -109,10 +109,11 @@
 	<b>Problem: Text lines, formulas, or geometric shapes can be added to the problem, one at a time, until complete problem is composed. </b>
 	<span id="problem-display"></span>
 </p>
-
+<button onclick="displayresult()">submit</button>
 
 </body>
 <script>
+function displayresult(){
   var answerSpan = document.getElementById('math-field1');
 			var latexSpan = document.getElementById('latex1');
 			var staticMath = document.getElementById('static-math');
@@ -132,7 +133,8 @@
 					}
 				}
 			});
-
+			alert("result is");
+}
 
   			function showContent(content) {
 					var i, tabcontent;
