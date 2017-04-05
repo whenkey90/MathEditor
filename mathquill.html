@@ -68,6 +68,9 @@
 			</select>
 		</form>
 		<div id="include-html"></div>
+		<div class="row">
+			<button class="btn" onclick="displayresult()">submit</button>
+		</div>
 		<a href="#" id="addformula">Add Formula to Problem Composition</a>
 		<br>
 		<a href="#" id="pm" class="fl">
@@ -161,7 +164,6 @@
 <!--<td><span class="char-btn" data-char="0" >0</span></td>-->
 <!--</tr>-->
 <!--</table>-->
-<button onclick="displayresult()">submit</button>
 </body>
 <script>
   function displayresult(){
@@ -184,7 +186,7 @@
 					}
 				}
 			});
-			alert("result is")	;
+			alert("result is" + $("#result-mathml").text())	;
   }
 
   			function showContent(content) {

@@ -184,12 +184,14 @@ var App = {
 		var MQ = MathQuill.getInterface(2); // for backcompat
 		var mathFieldSpan = document.getElementById('math-field1');
 		var latexSpan = document.getElementById('latex1');
+        var resultMathML = document.getElementById('result-mathml');
 	    var mathField = MQ.MathField(mathFieldSpan, {
 		  spaceBehavesLikeTab: true, // configurable
 		  handlers: {
 		    spaceBehavesLikeTab : false,
 			edit: function() { // useful event handlers
 			  latexSpan.textContent = mathField.latex(); // simple API
+              resultMathML.textContent = TeXZilla.toMathMLString(mathField.latex());
 			}
 		  }
 		});
