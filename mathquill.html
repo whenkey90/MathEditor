@@ -34,13 +34,17 @@
 
 </head>
 <body>
-<!---<p>LaTeX : <span id="latex"></span></p>--->
+<!--<p>LaTeX : <span id="latex"></span></p>-->
 <!--<span id="main-span" style="display:none"></span>-->
-<!----<p><span id="math-field"></span></p>--->
+<!--<p><span id="math-field"></span></p>-->
 
 <br/>
+
 <div class="flex-container">
 	<div class="tab">
+
+
+
 		<button  onclick="showContent('textline')">Text</button>
 		<button  onclick="showContent('controls')">Formula</button>
 		<button onclick="showContent('shapes')">Shapes</button>
@@ -82,7 +86,7 @@
 	</div>
 	<div class="tabcontent shapes">
 		<b>Geometric Shape Editor:</b>
-		<div id="canvasDiv" width="500" height="300" style="border:1px solid #000000;display:block;"></div>
+		<div id="myCanvas" width="300" height="100" style="border:1px solid #000000;display:block;"></div>
 		<a href="#" id="addshape">Add geometric shape to Problem Composition</a>
 		<br>
 	</div>
@@ -109,10 +113,58 @@
 	<b>Problem: Text lines, formulas, or geometric shapes can be added to the problem, one at a time, until complete problem is composed. </b>
 	<span id="problem-display"></span>
 </p>
+<!--<button onclick="displayresult()">submit</button>-->
 
-
+<!-- <div style="width:500px;height:300px" id="editorContainer"></div> -->
+<!-- <a href="#" class="btn" onclick="App.doGet()">get</a> -->
+<!--<table>-->
+<!--<tr>-->
+<!--<td><span class="char-btn" data-char="plusminus">pm</span></td>-->
+<!--<td><span class="char-btn" data-char="sqrt">sqrt</span></td>-->
+<!--<td><span class="char-btn" data-char="frac" >/</span></td>-->
+<!--<td><span class="char-btn" data-char="power">^</span></td>-->
+<!--<td><span class="char-btn" data-char="cdot" >.</span></td>-->
+<!--<td><span class="char-btn" data-char="le" ><</span></td>-->
+<!--<td><span class="char-btn" data-char="ge">></span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td><span class="char-btn"  data-char="space">space</span></td>-->
+<!--<td><span class="char-btn"  data-char="backspace">X</span></td>-->
+<!--<td><span class="char-btn"  data-char="[">[</span></td>-->
+<!--<td><span class="char-btn"  data-char="]">]</span></td>-->
+<!--<td><span class="char-btn"  data-char="(">(</span></td>-->
+<!--<td><span class="char-btn"  data-char=")">)</span></td>-->
+<!--<td><span class="char-btn"  data-char="-">-</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td><span class="char-btn"  data-char="m">m</span></td>-->
+<!--<td><span class="char-btn"  data-char="n">n</span></td>-->
+<!--<td><span class="char-btn"  data-char="p">p</span></td>-->
+<!--<td><span class="char-btn"  data-char="q">q</span></td>-->
+<!--<td><span class="char-btn"  data-char="{">{</span></td>-->
+<!--<td><span class="char-btn"  data-char="}">}</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td><span class="char-btn" data-char="7" >7</span></td>-->
+<!--<td><span class="char-btn" data-char="8" >8</span></td>-->
+<!--<td><span class="char-btn" data-char="9" >9</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td><span class="char-btn" data-char="4" >4</span></td>-->
+<!--<td><span class="char-btn" data-char="5" >5</span></td>-->
+<!--<td><span class="char-btn" data-char="6" >6</span></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--<td><span class="char-btn" data-char="1" >1</span></td>-->
+<!--<td><span class="char-btn" data-char="2" >2</span></td>-->
+<!--<td><span class="char-btn" data-char="3" >3</span></td>-->
+<!--<td><span class="char-btn" data-char="0" >0</span></td>-->
+<!--</tr>-->
+<!--</table>-->
+<button onclick="displayresult()">submit</button>
 </body>
 <script>
+  function displayresult(){
   var answerSpan = document.getElementById('math-field1');
 			var latexSpan = document.getElementById('latex1');
 			var staticMath = document.getElementById('static-math');
@@ -132,7 +184,8 @@
 					}
 				}
 			});
-			}
+			alert("result is")	;
+  }
 
   			function showContent(content) {
 					var i, tabcontent;
