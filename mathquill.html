@@ -53,7 +53,7 @@
 		<button onclick="showContent('shapes')">Shapes</button>
 	</div>
 
-	<div class="tabcontent textline">
+	<div class="tabcontent textline" style="display:block">
 		<b>Text line: Enter text here (one problem line at a time; press Add line to Problem Composition)</b>
 		<br>
 		<textarea cols="50" id="textlines"></textarea>
@@ -71,9 +71,6 @@
 			</select>
 		</form>
 		<div id="include-html"></div>
-		<div class="row">
-			<button class="btn" onclick="displayresult()">submit</button>
-		</div>
 		<a href="#" id="addformula">Add Formula to Problem Composition</a>
 		<br>
 		<!--<a href="#" id="pm" class="fl">
@@ -96,6 +93,9 @@
 		<a href="#" id="addshape">Add geometric shape to Problem Composition</a>
 		<br>
 	</div>
+</div>
+<div class="row">
+	<button class="btn" onclick="displayresult()">submit</button>
 </div>
 <p>
 	<b>LaTeX of what you typed:</b>
