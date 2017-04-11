@@ -48,6 +48,16 @@ var keys = {
 	'0' : '0',
 
 };
+var canX = new Array();
+var canY = new Array();
+
+var clickX = new Array();
+var clickY = new Array();
+var clickDrag = new Array();
+var paint;
+var canvasWidth = "300px";
+var canvasHeight = "100px";
+var context;
 $(function() {
 
 
@@ -92,10 +102,14 @@ $(function() {
 
 				$('a#addshape').on("click", function(e) {
 					e.preventDefault();
-					var formulaContent = "EXTRACT KEY-STROKES FROM CANVAS ELEMENT AND ADD THEM AS LINE";
-					lineArray[lineCounter] = 'SHAPE:\t' + formulaContent;
-					lineCounter++;
+//					var formulaContent = "EXTRACT KEY-STROKES FROM CANVAS ELEMENT AND ADD THEM AS LINE";
+//					lineArray[lineCounter] = 'SHAPE:\t' + formulaContent;
+//					lineCounter++;
 					displayProblem();
+					App.clearCanvas();
+					var canvasLength = $(".display-canvas").length + 1;
+					$("#main-canvas").append("<div class='display-canvas' id=canvas-"+canvasLength+"></div>");
+					App.drawCanvasAt("canvas-"+canvasLength);
 					return false;
 				});
 				$('a#pm').on("click", function(e) {
@@ -282,9 +296,6 @@ var App = {
 	    });
     },
 	initCanvas : function (){
-	    var canvasWidth = "300px";
-	    var canvasHeight = "100px";
-	    var context;
 	    var canvasDiv = document.getElementById('myCanvas');
         canvas = document.createElement('canvas');
         canvas.setAttribute('width', canvasWidth);
@@ -301,13 +312,13 @@ var App = {
           var mouseY = e.pageY - this.offsetTop;
 
           paint = true;
-          addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-          redraw();
+          App.addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+          App.redraw();
         });
         $('#canvas').mousemove(function(e){
           if(paint){
-            addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-            redraw();
+            App.addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+            App.redraw();
           }
         });
         $('#canvas').mouseup(function(e){
@@ -320,36 +331,66 @@ var App = {
 	        context.clearRect(0, 0, canvasWidth, canvasHeight);
         });
 
-        var clickX = new Array();
-        var clickY = new Array();
-        var clickDrag = new Array();
-        var paint;
+	},
 
-        function addClick(x, y, dragging)
-        {
-          clickX.push(x);
-          clickY.push(y);
-          clickDrag.push(dragging);
+
+    addClick : function (x, y, dragging){
+      clickX.push(x);
+      clickY.push(y);
+      canX = clickX;
+      canY = clickY;
+      clickDrag.push(dragging);
+    },
+
+    redraw : function (){
+      context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+
+      context.strokeStyle = "#df4b26";
+      context.lineJoin = "round";
+      context.lineWidth = 5;
+
+      for(var i=0; i < clickX.length; i++) {
+        context.beginPath();
+        if(clickDrag[i] && i){
+          context.moveTo(clickX[i-1], clickY[i-1]);
+         }else{
+           context.moveTo(clickX[i]-1, clickY[i]);
+         }
+         context.lineTo(clickX[i], clickY[i]);
+         context.closePath();
+         context.stroke();
+      }
+    },
+
+    clearCanvas : function(){
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+        clickX = [];
+        clickY = [];
+    },
+
+    drawCanvasAt : function(input){
+	    var canvasDiv = document.getElementById(input);
+        canvas = document.createElement('canvas');
+        canvas.setAttribute('width', canvasWidth);
+        canvas.setAttribute('height', canvasHeight);
+        canvasDiv.appendChild(canvas);
+        if(typeof G_vmlCanvasManager != 'undefined') {
+        	canvas = G_vmlCanvasManager.initElement(canvas);
         }
-
-        function redraw(){
-          context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-
-          context.strokeStyle = "#df4b26";
-          context.lineJoin = "round";
-          context.lineWidth = 5;
-
-          for(var i=0; i < clickX.length; i++) {
+        var context = canvas.getContext("2d");
+        context.strokeStyle = "#df4b26";
+        context.lineJoin = "round";
+        context.lineWidth = 5;
+        for(var i=0; i < canX.length; i++) {
             context.beginPath();
             if(clickDrag[i] && i){
-              context.moveTo(clickX[i-1], clickY[i-1]);
-             }else{
-               context.moveTo(clickX[i]-1, clickY[i]);
-             }
-             context.lineTo(clickX[i], clickY[i]);
-             context.closePath();
-             context.stroke();
-          }
+                context.moveTo(canX[i-1], canY[i-1]);
+            }else{
+                context.moveTo(canX[i]-1, canY[i]);
+            }
+            context.lineTo(canX[i], canY[i]);
+            context.closePath();
+            context.stroke();
         }
-	},
+    },
 }
