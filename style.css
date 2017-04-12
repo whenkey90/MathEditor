@@ -6,6 +6,7 @@
 }
 
 div.tab button{
+padding: 14px 16px;
 display:block;
 margin:10px;
 }
@@ -16,16 +17,16 @@ div.tabcontent{
 
 .char-btn {
   display: inline-block;
-  padding: 15px 25px;
-  font-size: 24px;
+  padding: 15px 20px;
+  font-size: 20px;
   cursor: pointer;
-  text-align: center;
+  text-align: left;
   text-decoration: none;
   outline: none;
   color: #fff;
   background-color: #4CAF50;
   border: none;
-  border-radius: 15px;
+  border-radius: 8px;
   box-shadow: 0 9px #999;
 }
 
@@ -54,7 +55,7 @@ div.tabcontent{
   background-image: linear-gradient(to bottom, #3498db, #2980b9);
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
-  border-radius: 28px;
+  border-radius: 20px;
   font-family: Arial;
   color: #ffffff;
   font-size: 20px;

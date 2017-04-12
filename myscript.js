@@ -75,9 +75,6 @@ $(function() {
 					}
 					problemDisplay.innerHTML = composedProblemStr;
 				}
-
-
-
 				$('a#textact').on("click", function(e) {
 					e.preventDefault();
 					var textareaElem = document.getElementById("textlines");
@@ -91,12 +88,18 @@ $(function() {
 				$('a#addformula').on("click", function(e) {
 					e.preventDefault();
 					var MQ = MathQuill.getInterface(2);
-					var answerSpan = document.getElementById('math-field1');
+					var answerSpan = document.getElementById('static-math');
 					var answerMathField = MQ.MathField(answerSpan);
 					var formulaContent = answerMathField.latex();
 					lineArray[lineCounter] = 'FORMULA:\t' + formulaContent;
 					lineCounter++;
+					//var $staticElement=$("#static-math");
+                    				//var staticMathField= MQ.MathField($staticElement[0]);
+                                    //$(staticMathField).prop("readonly",true);
+                    				//mathField.cmd(data);
+                    				//staticMathField.cmd(data);
 					displayProblem();
+					//var staticMath = document.getElementById('static-math');
 					return false;
 				});
 
@@ -224,7 +227,11 @@ var App = {
 					mathField.keystroke("Backspace");
 					return;
 				}
+				//var $staticElement=$("#static-math");
+				//var staticMathField= MQ.MathField($staticElement[0]);
+                //$(staticMathField).attr("readonly",true);
 				mathField.cmd(data);
+				//staticMathField.cmd(data);
 				mathField.focus();
 			});
         });
