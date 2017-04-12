@@ -99,6 +99,8 @@ $(function() {
                     				//mathField.cmd(data);
                     				//staticMathField.cmd(data);
 					displayProblem();
+					$("#math-field1").html('');
+					//$("#static-math").html('');
 					//var staticMath = document.getElementById('static-math');
 					return false;
 				});
