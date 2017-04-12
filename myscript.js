@@ -58,6 +58,7 @@ var paint;
 var canvasWidth = "300px";
 var canvasHeight = "100px";
 var context;
+var contentArray = [];
 $(function() {
 
 
@@ -71,7 +72,7 @@ $(function() {
 					var problemDisplay = document.getElementById('problem-display');
 					var composedProblemStr = '';
 					for (i=0; i < lineCounter; i++){
-						composedProblemStr = composedProblemStr + '<br>' + lineArray[i];
+						composedProblemStr = composedProblemStr + ' ' + lineArray[i];
 					}
 					problemDisplay.innerHTML = composedProblemStr;
 				}
@@ -79,9 +80,12 @@ $(function() {
 					e.preventDefault();
 					var textareaElem = document.getElementById("textlines");
 					var textAreaContent = textareaElem.value;
-					lineArray[lineCounter] = 'TEXT:\t' + textAreaContent;
-					lineCounter++;
-					displayProblem();
+//					lineArray[lineCounter] = textAreaContent;
+//					lineArray[lineCounter] = 'TEXT:\t' + textAreaContent;
+//					lineCounter++;
+//					displayProblem();
+					contentArray.push(App.createObj("TEXT", textAreaContent));
+					$("#problem-display").append(textAreaContent);
 					return false;
 				});
 
@@ -89,17 +93,28 @@ $(function() {
 					e.preventDefault();
 					var MQ = MathQuill.getInterface(2);
 					var answerSpan = document.getElementById('static-math');
-					var answerMathField = MQ.MathField(answerSpan);
-					var formulaContent = answerMathField.latex();
-					lineArray[lineCounter] = 'FORMULA:\t' + formulaContent;
+//					var answerMathField = MQ.MathField(answerSpan);
+//					var formulaContent = answerMathField.latex();
+					var problemDisplay = $('#problem-display');
+					var noOfFormulas = $(".display-formula").length + 1;
+					var content = $("<div class='display-formula' id='formula-"+noOfFormulas+"'></div>")
+					$("#problem-display").append(content);
+					var latexContent = $("#latex1").text();
+			        var staticMath = document.getElementById('formula-'+noOfFormulas);
+                    staticMath.textContent = $("#latex1").text();
+					MQ.StaticMath(staticMath);
+					contentArray.push(App.createObj("FORMULA", latexContent));
+//					lineArray[lineCounter] = 'FORMULA:\t' + formulaContent;
 					lineCounter++;
 					//var $staticElement=$("#static-math");
                     				//var staticMathField= MQ.MathField($staticElement[0]);
                                     //$(staticMathField).prop("readonly",true);
                     				//mathField.cmd(data);
                     				//staticMathField.cmd(data);
-					displayProblem();
-					$("#math-field1").html('');
+					//displayProblem();
+					//$("#math-field1").html('');
+					App.clearMathFormula();
+					App.initMath();
 					//$("#static-math").html('');
 					//var staticMath = document.getElementById('static-math');
 					return false;
@@ -110,10 +125,11 @@ $(function() {
 //					var formulaContent = "EXTRACT KEY-STROKES FROM CANVAS ELEMENT AND ADD THEM AS LINE";
 //					lineArray[lineCounter] = 'SHAPE:\t' + formulaContent;
 //					lineCounter++;
-					displayProblem();
+					//displayProblem();
+					contentArray.push(App.createObj("SHAPE", "SHAPE"));
 					App.clearCanvas();
 					var canvasLength = $(".display-canvas").length + 1;
-					$("#main-canvas").append("<div class='display-canvas' id=canvas-"+canvasLength+"></div>");
+					$("#problem-display").append("<div class='display-canvas' id=canvas-"+canvasLength+"></div>");
 					App.drawCanvasAt("canvas-"+canvasLength);
 					return false;
 				});
@@ -189,6 +205,10 @@ function toMathML(jax, callback) {
 				MathJax.Callback(callback)(mml);
 			}
 var MQ = MathQuill.getInterface(2);
+var mathFieldSpan = document.getElementById('math-field1');
+var latexSpan = document.getElementById('latex1');
+var resultMathML = document.getElementById('result-mathml');
+var mathField;
 var App = {
     init: function() {
         $("#include-html").load("basic.html");
@@ -200,11 +220,7 @@ var App = {
     },
 
 	initMath : function(){
-		var MQ = MathQuill.getInterface(2); // for backcompat
-		var mathFieldSpan = document.getElementById('math-field1');
-		var latexSpan = document.getElementById('latex1');
-        var resultMathML = document.getElementById('result-mathml');
-	    var mathField = MQ.MathField(mathFieldSpan, {
+	    mathField = MQ.MathField(mathFieldSpan, {
 		  spaceBehavesLikeTab: true, // configurable
 		  handlers: {
 		    spaceBehavesLikeTab : false,
@@ -401,5 +417,18 @@ var App = {
             context.closePath();
             context.stroke();
         }
+    },
+
+    clearMathFormula : function(){
+        mathField.revert();
+        latexSpan.textContent = '';
+        resultMathML.textContent = '';
+    },
+
+    createObj : function(type, content){
+        var obj = new Object();
+        obj.type = type;
+        obj.content = content;
+        return obj;
     },
 }
