@@ -76,6 +76,24 @@ $(function() {
 					}
 					problemDisplay.innerHTML = composedProblemStr;
 				}
+
+				function displayArray(arr,element,type){
+                    var content="";
+                    switch (type) {
+                        case "TEXT":
+                            content = $('#'+element).val();
+                            break;
+                        case "FORMULA":
+                            content = $('#'+element).text();
+                            break;
+                        case "SHAPE":
+                             content = "SHAPE";
+                         break;
+                    }
+                    arr.push(App.createObj(type, content));
+                    console.log(contentArray);
+				}
+
 				$('a#textact').on("click", function(e) {
 					e.preventDefault();
 					var textareaElem = document.getElementById("textlines");
@@ -83,8 +101,9 @@ $(function() {
 //					lineArray[lineCounter] = textAreaContent;
 //					lineArray[lineCounter] = 'TEXT:\t' + textAreaContent;
 //					lineCounter++;
-//					displayProblem();
-					contentArray.push(App.createObj("TEXT", textAreaContent));
+//					displayProblem();y
+//					contentArray.push(App.createObj("TEXT", textAreaContent));
+                    displayArray(contentArray,"textlines","TEXT");
 					$("#problem-display").append(textAreaContent);
 					return false;
 				});
@@ -103,7 +122,9 @@ $(function() {
 			        var staticMath = document.getElementById('formula-'+noOfFormulas);
                     staticMath.textContent = $("#latex1").text();
 					MQ.StaticMath(staticMath);
-					contentArray.push(App.createObj("FORMULA", latexContent));
+
+					 displayArray(contentArray,"latex1","FORMULA");
+//					contentArray.push(App.createObj("FORMULA", latexContent));
 //					lineArray[lineCounter] = 'FORMULA:\t' + formulaContent;
 					lineCounter++;
 					//var $staticElement=$("#static-math");
@@ -126,7 +147,8 @@ $(function() {
 //					lineArray[lineCounter] = 'SHAPE:\t' + formulaContent;
 //					lineCounter++;
 					//displayProblem();
-					contentArray.push(App.createObj("SHAPE", "SHAPE"));
+//					contentArray.push(App.createObj("SHAPE", "SHAPE"));
+                    displayArray(contentArray,"SHAPE","SHAPE");
 					App.clearCanvas();
 					var canvasLength = $(".display-canvas").length + 1;
 					$("#problem-display").append("<div class='display-canvas' id=canvas-"+canvasLength+"></div>");
