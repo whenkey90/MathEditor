@@ -77,7 +77,7 @@ $(function() {
 					problemDisplay.innerHTML = composedProblemStr;
 				}
 
-				function displayArray(arr,element,type){
+				function manageArray(arr,element,type){
                     var content="";
                     switch (type) {
                         case "TEXT":
@@ -91,7 +91,6 @@ $(function() {
                          break;
                     }
                     arr.push(App.createObj(type, content));
-                    console.log(contentArray);
 				}
 
 				$('a#textact').on("click", function(e) {
@@ -103,7 +102,7 @@ $(function() {
 //					lineCounter++;
 //					displayProblem();y
 //					contentArray.push(App.createObj("TEXT", textAreaContent));
-                    displayArray(contentArray,"textlines","TEXT");
+                    manageArray(contentArray,"textlines","TEXT");
 					$("#problem-display").append(textAreaContent);
 					return false;
 				});
@@ -123,7 +122,7 @@ $(function() {
                     staticMath.textContent = $("#latex1").text();
 					MQ.StaticMath(staticMath);
 
-					 displayArray(contentArray,"latex1","FORMULA");
+					 manageArray(contentArray,"latex1","FORMULA");
 //					contentArray.push(App.createObj("FORMULA", latexContent));
 //					lineArray[lineCounter] = 'FORMULA:\t' + formulaContent;
 					lineCounter++;
@@ -134,7 +133,7 @@ $(function() {
                     				//staticMathField.cmd(data);
 					//displayProblem();
 					//$("#math-field1").html('');
-					App.clearMathFormula();
+					mathField.latex('');
 					App.initMath();
 					//$("#static-math").html('');
 					//var staticMath = document.getElementById('static-math');
@@ -148,7 +147,7 @@ $(function() {
 //					lineCounter++;
 					//displayProblem();
 //					contentArray.push(App.createObj("SHAPE", "SHAPE"));
-                    displayArray(contentArray,"SHAPE","SHAPE");
+                    manageArray(contentArray,"SHAPE","SHAPE");
 					App.clearCanvas();
 					var canvasLength = $(".display-canvas").length + 1;
 					$("#problem-display").append("<div class='display-canvas' id=canvas-"+canvasLength+"></div>");
@@ -441,11 +440,6 @@ var App = {
         }
     },
 
-    clearMathFormula : function(){
-        mathField.revert();
-        latexSpan.textContent = '';
-        resultMathML.textContent = '';
-    },
 
     createObj : function(type, content){
         var obj = new Object();
