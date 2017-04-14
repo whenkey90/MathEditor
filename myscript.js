@@ -444,7 +444,14 @@ var App = {
     createObj : function(type, content){
         var obj = new Object();
         obj.type = type;
-        obj.content = content;
+        if(type == "TEXT" || type == "FORMULA"){
+            obj.content = content;
+        }
+        else if(type == "SHAPE"){
+            obj.canX = canX;
+            obj.canY = canY;
+        }
+        console.log(obj);
         return obj;
     },
 }
