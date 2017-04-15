@@ -59,6 +59,8 @@ var canvasWidth = "300px";
 var canvasHeight = "100px";
 var context;
 var contentArray = [];
+
+var count=0;
 $(function() {
 
 
@@ -77,6 +79,7 @@ $(function() {
 					problemDisplay.innerHTML = composedProblemStr;
 				}
 
+
 				function manageArray(arr,element,type){
                     var content="";
                     switch (type) {
@@ -90,7 +93,11 @@ $(function() {
                              content = "SHAPE";
                          break;
                     }
-                    arr.push(App.createObj(type, content));
+                    id=count;
+
+                    arr.push(App.createObj(type, content,id));
+                    count++;
+                     console.log(arr);
 				}
 
 				$('a#textact').on("click", function(e) {
@@ -99,11 +106,38 @@ $(function() {
 					var textAreaContent = textareaElem.val();
                     manageArray(contentArray,"textlines","TEXT");
 					var textLength = $(".display-text").length + 1;
-					$("#problem-display").append("<div class='display-text' id=text-"+textLength+"></div>");
+					$("#text-display").append("<div class='display-text' id=text-"+textLength+ " data-pos="+(count-1)+"></div>");
 					$("#text-"+textLength).append(textAreaContent);
 					textareaElem.val("");
 					return false;
 				});
+
+				function editText(arr,element,child){
+                    var index=$("#"+element+" ."+child+":first-child").attr('data-pos');
+                    var content=$("#"+element+" ."+child+":first-child").text();
+                    $('#textlines').val(content);
+
+				}
+
+				function deleteText(arr,element,child){
+				var index=$("#"+element+" ."+child+":first-child").attr('data-pos');
+				for (i = 0; i <= arr.length; i++) {
+                   if(arr[i].id==index){
+                     arr.splice(i,1);
+                     break;
+                   }
+                }
+                    $("#"+element+" ."+child+":first-child").remove();
+				}
+
+				$('#deleteText').on("click" ,function(){
+				    deleteText(contentArray,'text-display','display-text')
+				});
+
+				$('#editText').on("click" ,function(){
+                	editText(contentArray,'text-display','display-text')
+                });
+
 
 				$('a#addformula').on("click", function(e) {
 					e.preventDefault();
@@ -424,7 +458,7 @@ var App = {
     },
 
 
-    createObj : function(type, content){
+    createObj : function(type, content,id){
         var obj = new Object();
         obj.type = type;
         if(type == "TEXT" || type == "FORMULA"){
@@ -434,7 +468,7 @@ var App = {
             obj.canX = canX;
             obj.canY = canY;
         }
-        console.log(obj);
+        obj.id=id;
         return obj;
     },
 }
