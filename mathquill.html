@@ -43,7 +43,7 @@
 
 <br/>
 
-<div class="flex-container" onclick="changetext()">
+<div class="flex-container">
 	<div class="tab">
 		<button  onclick="showContent('textline')">Text</button>
 		<button  onclick="showContent('controls')">Formula</button>
@@ -68,9 +68,7 @@
 			</select>
 		</form>
 		<div id="include-html"></div>
-		<a href="#" id="addformula"><button class="btn" id="update-btn">update</button>
-			<button class="btn" id="delete-btn">Delete</button>
-		</a>
+		<a href="#" id="addformula">Add Formula to Problem Composition</a>
 		<br>
 		<!--<a href="#" id="pm" class="fl">
 			<math>
@@ -151,11 +149,6 @@
 					}
 					document.getElementsByClassName(content)[0].style.display = "block";
 					}
-					function changetext()
-					{
-					alert("div clickable");
-					}
-
 		</script>
 <script src="myscript.js"></script>
 <script>

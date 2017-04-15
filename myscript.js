@@ -258,8 +258,8 @@ var App = {
 			});
         });
 
-        $("#update-btn").click(function() {
-           // alert("Expression : " + $("#main-text").html());
+        $("#submit-btn").click(function() {
+           alert("Expression : " + $("#main-text").html());
         });
     },
 
