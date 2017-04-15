@@ -95,15 +95,13 @@ $(function() {
 
 				$('a#textact').on("click", function(e) {
 					e.preventDefault();
-					var textareaElem = document.getElementById("textlines");
-					var textAreaContent = textareaElem.value;
-//					lineArray[lineCounter] = textAreaContent;
-//					lineArray[lineCounter] = 'TEXT:\t' + textAreaContent;
-//					lineCounter++;
-//					displayProblem();y
-//					contentArray.push(App.createObj("TEXT", textAreaContent));
+					var textareaElem = $("#textlines");
+					var textAreaContent = textareaElem.val();
                     manageArray(contentArray,"textlines","TEXT");
-					$("#problem-display").append(textAreaContent);
+					var textLength = $(".display-text").length + 1;
+					$("#problem-display").append("<div class='display-text' id=text-"+textLength+"></div>");
+					$("#text-"+textLength).append(textAreaContent);
+					textareaElem.val("");
 					return false;
 				});
 
@@ -111,8 +109,6 @@ $(function() {
 					e.preventDefault();
 					var MQ = MathQuill.getInterface(2);
 					var answerSpan = document.getElementById('static-math');
-//					var answerMathField = MQ.MathField(answerSpan);
-//					var formulaContent = answerMathField.latex();
 					var problemDisplay = $('#problem-display');
 					var noOfFormulas = $(".display-formula").length + 1;
 					var content = $("<div class='display-formula' id='formula-"+noOfFormulas+"'></div>")
@@ -121,22 +117,9 @@ $(function() {
 			        var staticMath = document.getElementById('formula-'+noOfFormulas);
                     staticMath.textContent = $("#latex1").text();
 					MQ.StaticMath(staticMath);
-
-					 manageArray(contentArray,"latex1","FORMULA");
-//					contentArray.push(App.createObj("FORMULA", latexContent));
-//					lineArray[lineCounter] = 'FORMULA:\t' + formulaContent;
+                    manageArray(contentArray,"latex1","FORMULA");
 					lineCounter++;
-					//var $staticElement=$("#static-math");
-                    				//var staticMathField= MQ.MathField($staticElement[0]);
-                                    //$(staticMathField).prop("readonly",true);
-                    				//mathField.cmd(data);
-                    				//staticMathField.cmd(data);
-					//displayProblem();
-					//$("#math-field1").html('');
 					mathField.latex('');
-					App.initMath();
-					//$("#static-math").html('');
-					//var staticMath = document.getElementById('static-math');
 					return false;
 				});
 
