@@ -100,43 +100,60 @@ $(function() {
                      console.log(arr);
 				}
 
+                var isAdd=true,pos=0;
 				$('a#textact').on("click", function(e) {
 					e.preventDefault();
 					var textareaElem = $("#textlines");
 					var textAreaContent = textareaElem.val();
+					var textLength=0;
+                    if(isAdd){
                     manageArray(contentArray,"textlines","TEXT");
-					var textLength = $(".display-text").length + 1;
-					$("#text-display").append("<div class='display-text' id=text-"+textLength+ " data-pos="+(count-1)+"></div>");
-					$("#text-"+textLength).append(textAreaContent);
+					textLength = count;
+					$("#problem-display").append("<div class='display-text' id=text-"+textLength+"  data-pos="+(count-1)+"><span style='margin-right:8px;'><button class='editText' style='margin:4px;'>Edit</button><button class='deleteText' style='margin:4px;'>Delete</button></span><span></span></div>");
+					}
+					else if(!isAdd){
+					    textLength=parseInt(pos)+1;
+					    for (i = 0; i <= contentArray.length; i++) {
+                           if(contentArray[i].id==pos){
+                                 contentArray[i].content=$('#textlines').val();
+                                 break;
+                               }
+                          }
+
+					    isAdd=true;
+					}
+
+                       console.log(textLength);
+					$("#text-"+textLength+" span:last-child").text(textAreaContent);
 					textareaElem.val("");
 					return false;
 				});
 
-				function editText(arr,element,child){
-                    var index=$("#"+element+" ."+child+":first-child").attr('data-pos');
-                    var content=$("#"+element+" ."+child+":first-child").text();
-                    $('#textlines').val(content);
 
-				}
+				$('#problem-display').on('click', '.deleteText', function() {
+				    var index=$(this).closest(".display-text").attr('data-pos');
+                     for (i = 0; i <= contentArray.length; i++) {
+                            if(contentArray[i].id==index){
+                                contentArray.splice(i,1);
+                                     break;
+                            }
+                       }
+                     $(this).closest(".display-text").remove();
 
-				function deleteText(arr,element,child){
-				var index=$("#"+element+" ."+child+":first-child").attr('data-pos');
-				for (i = 0; i <= arr.length; i++) {
-                   if(arr[i].id==index){
-                     arr.splice(i,1);
-                     break;
-                   }
-                }
-                    $("#"+element+" ."+child+":first-child").remove();
-				}
-
-				$('#deleteText').on("click" ,function(){
-				    deleteText(contentArray,'text-display','display-text')
-				});
-
-				$('#editText').on("click" ,function(){
-                	editText(contentArray,'text-display','display-text')
+                     console.log(contentArray);
                 });
+
+				$('#problem-display').on('click', '.editText', function() {
+                		pos=$(this).closest(".display-text").attr('data-pos');
+                            for (i = 0; i <= contentArray.length; i++) {
+                               if(contentArray[i].id==pos){
+                                      $('#textlines').val(contentArray[i].content);
+                                      isAdd=false;
+                                        break;
+                                  }
+                                       }
+
+                   });
 
 
 				$('a#addformula').on("click", function(e) {
