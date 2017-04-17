@@ -97,7 +97,7 @@ $(function() {
 
                     arr.push(App.createObj(type, content,id));
                     count++;
-                     console.log(arr);
+                    // console.log(arr);
 				}
 
                 var isAdd=true,pos=0;
