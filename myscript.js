@@ -61,6 +61,7 @@ var context;
 var contentArray = [];
 
 var count=0;
+var currPos=0;
 $(function() {
 
 
@@ -123,8 +124,6 @@ $(function() {
 
 					    isAdd=true;
 					}
-
-                       console.log(textLength);
 					$("#text-"+textLength+" span:last-child").text(textAreaContent);
 					textareaElem.val("");
 					return false;
@@ -161,21 +160,64 @@ $(function() {
 
 				$('a#addformula').on("click", function(e) {
 					e.preventDefault();
-					var MQ = MathQuill.getInterface(2);
 					var answerSpan = document.getElementById('static-math');
 					var problemDisplay = $('#problem-display');
-					var noOfFormulas = $(".display-formula").length + 1;
-					var content = $("<div class='display-formula' id='formula-"+noOfFormulas+"'></div>")
+					var noOfFormulas = count + 1;
+					if(isAdd){
+                    manageArray(contentArray,"latex1","FORMULA");
+					var content = $("<div class='display-formula' id='display-formula-"+noOfFormulas+"'></div>")
 					$("#problem-display").append(content);
+					var fContent = $("<div id='formula-"+noOfFormulas+"'></div>")
+					var editButton = $("<button class='edit-formula' data-pos='"+ (count-1) +"'>Edit</button>")
+					var deleteButton = $("<button class='delete-formula' data-pos='"+ (count-1) +"'>Delete</button>")
+                    $("#display-formula-"+noOfFormulas).append(fContent);
+                    $("#display-formula-"+noOfFormulas).append(editButton);
+                    $("#display-formula-"+noOfFormulas).append(deleteButton);
 					var latexContent = $("#latex1").text();
 			        var staticMath = document.getElementById('formula-'+noOfFormulas);
                     staticMath.textContent = $("#latex1").text();
 					MQ.StaticMath(staticMath);
-                    manageArray(contentArray,"latex1","FORMULA");
 					lineCounter++;
+					}
+					else{
+                        $("#addformula").text("Add Formula to Problem Composition");
+                        contentArray.forEach(function(item){
+                            if(item.id == currPos){
+                                var staticMath = document.getElementById('formula-' + (currPos+1));
+                                 item.content = $("#latex1").text();
+                                 staticMath.textContent = item.content;
+                                 MQ.StaticMath(staticMath);
+                                 currPos = 0;
+                            }
+                        });
+					    isAdd=true;
+					}
 					mathField.latex('');
 					return false;
 				});
+
+				$('#problem-display').on('click', '.edit-formula', function() {
+                    var pos = $(this).attr('data-pos');
+                    currPos = parseInt(pos);
+                    contentArray.forEach(function(item){
+                        if(item.id == pos){
+                            mathField.latex(item.content);
+                            $("#addformula").text("Update");
+                            isAdd=false;
+                        }
+                    });
+               });
+
+				$('#problem-display').on('click', '.delete-formula', function() {
+                    var pos = $(this).attr('data-pos');
+                    contentArray.forEach(function(item){
+                        if(item.id == pos){
+                            var index = contentArray.indexOf(item);
+                            contentArray.splice(index,1);
+                            $("#display-formula-"+(parseInt(pos)+1)).remove();
+                        }
+                    });
+               });
 
 				$('a#addshape').on("click", function(e) {
 					e.preventDefault();
