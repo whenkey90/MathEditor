@@ -112,6 +112,7 @@ $(function() {
 					$("#problem-display").append("<div class='display-text' id=text-"+textLength+"  data-pos="+(count-1)+"><span style='margin-right:8px;'><button class='editText' style='margin:4px;'>Edit</button><button class='deleteText' style='margin:4px;'>Delete</button></span><span></span></div>");
 					}
 					else if(!isAdd){
+                        $("#textact").text("Add a line of text to Problem Composition");
 					    textLength=parseInt(pos)+1;
 					    for (i = 0; i <= contentArray.length; i++) {
                            if(contentArray[i].id==pos){
@@ -149,6 +150,8 @@ $(function() {
                                if(contentArray[i].id==pos){
                                       $('#textlines').val(contentArray[i].content);
                                       isAdd=false;
+                                      $("#textlines").focus();
+                                      $("#textact").text("Update");
                                         break;
                                   }
                                        }
