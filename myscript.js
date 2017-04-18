@@ -62,6 +62,7 @@ var contentArray = [];
 
 var count=0;
 var currPos=0;
+var curentpos=0;
 $(function() {
 
 
@@ -226,13 +227,68 @@ $(function() {
 //					lineCounter++;
 					//displayProblem();
 //					contentArray.push(App.createObj("SHAPE", "SHAPE"));
+                    if(isAdd){
                     manageArray(contentArray,"SHAPE","SHAPE");
 					App.clearCanvas();
-					var canvasLength = $(".display-canvas").length + 1;
-					$("#problem-display").append("<div class='display-canvas' id=canvas-"+canvasLength+"></div>");
+					var canvasLength = count+ 1;
+					$("#problem-display").append("<div class='display-canvas' id=display-canvas-"+canvasLength+"></div>");
+					var fshape = $("<div id='canvas-"+canvasLength+"'></div>")
+                    var EditButton = $("<button class='edit-shape' data-pos='"+ (count-1) +"'>Edit</button>")
+                    var DeleteButton = $("<button class='delete-shape' data-pos='"+ (count-1) +"'>Delete</button>")
+                    $("#display-canvas-"+canvasLength).append(fshape);
+                    $("#display-canvas-"+canvasLength).append(EditButton);
+                    $("#display-canvas-"+canvasLength).append(DeleteButton);
+
 					App.drawCanvasAt("canvas-"+canvasLength);
-					return false;
+					}
+					else if(!isAdd){
+                      $("#addshape").text("Add geometric shape to Problem Composition");
+                      canvasLength=parseInt(curentpos)+1;
+                     //for (i = 0; i <= contentArray.length; i++) {
+                      contentArray.forEach(function(item){
+                      if(item.id == curentpos){
+                      //if(contentArray[i].id==curpos){
+                      contentArray[id].content=$('#myCanvas').val();
+                      //break;
+                       curentpos=0;
+                      }
+                    });
+                    	isAdd=true;
+                    }
+                     return false;
 				});
+				$('#problem-display').on('click', '.delete-shape', function() {
+                				    var pos=$(this).attr('data-pos');
+                					curentpos=parseInt(pos);
+                                     for (i = 0; i <= contentArray.length; i++) {
+                                            if(contentArray[i].id==pos){
+                                                contentArray.splice(i,1);
+                                                     break;
+                                            }
+                                       }
+                                     $(this).closest(".display-canvas").remove();
+
+                                     console.log(contentArray);
+                                });
+
+                				$('#problem-display').on('click', '.edit-shape', function() {
+                					//pos=$(this).closest(".display-canvas").attr('data-pos');
+                                		pos=$(this).attr('data-pos');
+                						console.log(contentArray);
+                						//App.drawCanvasAt("display-canvas-"+canvasLength);
+                                            for (i = 0; i <= contentArray.length; i++) {
+                                               if(contentArray[i].id==pos){
+                                                      $('#myCanvas').val(contentArray[i].content);
+                                                      isAdd=false;
+                                                      $("#myCanvas").focus();
+                                                      $("#addshape").text("Update");
+                									  isAdd=false;
+                                                        break;
+                                               }
+                                            }
+
+                                   });
+
 				$('a#pm').on("click", function(e) {
 					e.preventDefault();
 					//alert('Enter PM...');
