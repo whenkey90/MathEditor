@@ -275,7 +275,7 @@ $(function() {
                 					//pos=$(this).closest(".display-canvas").attr('data-pos');
                                 		pos=$(this).attr('data-pos');
                 						console.log(contentArray);
-                						//App.drawCanvasAt("display-canvas-"+canvasLength);
+                						App.drawCanvasAt("myCanvas");
                                             for (i = 0; i <= contentArray.length; i++) {
                                                if(contentArray[i].id==pos){
                                                       $('#myCanvas').val(contentArray[i].content);
