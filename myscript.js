@@ -111,7 +111,7 @@ $(function() {
                     //if(isAdd){
                     manageArray(contentArray,"textlines","TEXT");
 					textLength = count;
-					$("#problem-display").append("<div class='display-text' id=text-"+textLength+"  data-pos="+(count-1)+"><span style='margin-right:8px;'><button class='editText' style='margin:4px;'>Edit</button><button class='deleteText' style='margin:4px;'>Delete</button></span><span></span></div>");
+					$("#problem-display").append("<div class='display-text' id=text-"+textLength+"  data-pos="+(count-1)+"><span style='margin-right:8px;'><button id='editText' style='margin:4px;'>Edit</button><button class='deleteText' style='margin:4px;'>Delete</button></span><span></span></div>");
 					//}
 					//else if(!isAdd){
                         $("#textact").text("Add a line of text to Problem Composition");
@@ -144,9 +144,12 @@ $(function() {
                      console.log(contentArray);
                 });
 
-				$('#problem-display').on('click', '.editText', function() {
-				showContent('textline')
+				$('#problem-display').on('click', '#editText', function() {
+				showContent('textline');
 				   $("#textlines").focus();
+				   //$(this).addClass("active");
+                      $("#edit-formula").removeClass("active");
+                      mathField.latex('');
                 		pos=$(this).closest(".display-text").attr('data-pos');
                             for (i = 0; i <= contentArray.length; i++) {
                                if(contentArray[i].id==pos){
@@ -171,7 +174,7 @@ $(function() {
 					var content = $("<div class='display-formula' id='display-formula-"+noOfFormulas+"'></div>")
 					$("#problem-display").append(content);
 					var fContent = $("<div id='formula-"+noOfFormulas+"'></div>")
-					var editButton = $("<button class='edit-formula' data-pos='"+ (count-1) +"'>Edit</button>")
+					var editButton = $("<button id='edit-formula' data-pos='"+ (count-1) +"'>Edit</button>")
 					var deleteButton = $("<button class='delete-formula' data-pos='"+ (count-1) +"'>Delete</button>")
                     $("#display-formula-"+noOfFormulas).append(fContent);
                     $("#display-formula-"+noOfFormulas).append(editButton);
@@ -199,9 +202,11 @@ $(function() {
 					return false;
 				});
 
-				$('#problem-display').on('click', '.edit-formula', function() {
+				$('#problem-display').on('click', '#edit-formula', function() {
 				showContent('controls');
 				$("#math-field1").focus();
+                  $("#editText").removeClass("active");
+                   $("#textlines").val('');
                     var pos = $(this).attr('data-pos');
                     currPos = parseInt(pos);
                     contentArray.forEach(function(item){

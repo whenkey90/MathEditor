@@ -4,7 +4,9 @@
     -webkit-align-items: flex-start;
     align-items: flex-start;
 }
-
+.active{
+background:blue;
+}
 div.tab button{
 padding: 14px 16px;
 display:block;
