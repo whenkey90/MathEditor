@@ -149,6 +149,8 @@ $(function() {
 				   $("#textlines").focus();
                       mathField.latex('');
                       App.clearCanvas()
+                      $("#addformula").text('');
+                      $("#addformula").text("Add Formula to Problem Composition");
                 		pos=$(this).closest(".display-text").attr('data-pos');
                             for (i = 0; i <= contentArray.length; i++) {
                                if(contentArray[i].id==pos){
@@ -205,7 +207,9 @@ $(function() {
 				showContent('controls');
 				$("#math-field1").focus();
                    $("#textlines").val('');
-                   App.clearCanvas()
+                   App.clearCanvas();
+                   $("#textact").text('');
+                   $("#textact").text("Add a line of text to Problem Composition");
                     var pos = $(this).attr('data-pos');
                     currPos = parseInt(pos);
                     contentArray.forEach(function(item){
