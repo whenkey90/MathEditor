@@ -108,23 +108,23 @@ $(function() {
 					var textareaElem = $("#textlines");
 					var textAreaContent = textareaElem.val();
 					var textLength=0;
-                    //if(isAdd){
+                    if(isAdd){
                     manageArray(contentArray,"textlines","TEXT");
 					textLength = count;
 					$("#problem-display").append("<div class='display-text' id=text-"+textLength+"  data-pos="+(count-1)+"><span style='margin-right:8px;'><button id='editText' style='margin:4px;'>Edit</button><button class='deleteText' style='margin:4px;'>Delete</button></span><span></span></div>");
-					//}
-					//else if(!isAdd){
+					}
+					else if(!isAdd){
                         $("#textact").text("Add a line of text to Problem Composition");
-					    //textLength=parseInt(pos)+1;
-					    //for (i = 0; i <= contentArray.length; i++) {
-                          // if(contentArray[i].id==pos){
-                                // contentArray[i].content=$('#textlines').val();
-                                 //break;
-                               //}
-                          //}
+					    textLength=parseInt(pos)+1;
+					    for (i = 0; i <= contentArray.length; i++) {
+                           if(contentArray[i].id==pos){
+                                 contentArray[i].content=$('#textlines').val();
+                                 break;
+                               }
+                          }
 
-					    //isAdd=true;
-					//}
+					    isAdd=true;
+					}
 					$("#text-"+textLength+" span:last-child").text(textAreaContent);
 					textareaElem.val("");
 					return false;
@@ -168,7 +168,7 @@ $(function() {
 					var answerSpan = document.getElementById('static-math');
 					var problemDisplay = $('#problem-display');
 					var noOfFormulas = count + 1;
-					//if(isAdd){
+					if(isAdd){
                     manageArray(contentArray,"latex1","FORMULA");
 					var content = $("<div class='display-formula' id='display-formula-"+noOfFormulas+"'></div>")
 					$("#problem-display").append(content);
@@ -183,20 +183,20 @@ $(function() {
                     staticMath.textContent = $("#latex1").text();
 					MQ.StaticMath(staticMath);
 					lineCounter++;
-					//}
-//					else{
+					}
+				else{
                       $("#addformula").text("Add Formula to Problem Composition");
-//                        //contentArray.forEach(function(item){
-//                            //if(item.id == currPos){
-//                              //  var staticMath = document.getElementById('formula-' + (currPos+1));
-//                                // item.content = $("#latex1").text();
-//                                 staticMath.textContent = item.content;
-//                                 MQ.StaticMath(staticMath);
-//                                 currPos = 0;
-//                            }
-//                        });
-//					    isAdd=true;
-//					}
+                       contentArray.forEach(function(item){
+                           if(item.id == currPos){
+                               var staticMath = document.getElementById('formula-' + (currPos+1));
+                                item.content = $("#latex1").text();
+                                staticMath.textContent = item.content;
+                                MQ.StaticMath(staticMath);
+                                 currPos = 0;
+                            }
+                        });
+					    isAdd=true;
+					}
 					mathField.latex('');
 					return false;
 				});
