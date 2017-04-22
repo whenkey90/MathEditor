@@ -102,18 +102,18 @@ $(function() {
                     // console.log(arr);
 				}
 
-                var isAdd=true,pos=0;
+                var isAdd=true,pos=0,type="";
 				$('a#textact').on("click", function(e) {
 					e.preventDefault();
 					var textareaElem = $("#textlines");
 					var textAreaContent = textareaElem.val();
 					var textLength=0;
-                    if(isAdd){
+                    if(isAdd||(type!="text")){
                     manageArray(contentArray,"textlines","TEXT");
 					textLength = count;
 					$("#problem-display").append("<div class='display-text' id=text-"+textLength+"  data-pos="+(count-1)+"><span style='margin-right:8px;'><button id='editText' style='margin:4px;'>Edit</button><button class='deleteText' style='margin:4px;'>Delete</button></span><span></span></div>");
 					}
-					else if(!isAdd){
+					else if(!isAdd&&(type=="text")){
                         $("#textact").text("Add a line of text to Problem Composition");
 					    textLength=parseInt(pos)+1;
 					    for (i = 0; i <= contentArray.length; i++) {
@@ -147,13 +147,16 @@ $(function() {
 				$('#problem-display').on('click', '#editText', function() {
 				showContent('textline');
 				   $("#textlines").focus();
+				   $("#addformula").text("Add Formula to Problem Composition");
                       mathField.latex('');
-                      App.clearCanvas()
+                      App.clearCanvas();
+                       $("#addshape").text("Add geometric shape to Problem Composition");
                 		pos=$(this).closest(".display-text").attr('data-pos');
                             for (i = 0; i <= contentArray.length; i++) {
                                if(contentArray[i].id==pos){
                                       $('#textlines').val(contentArray[i].content);
                                       isAdd=false;
+                                      type="text";
                                       $("#textlines").focus();
                                       $("#textact").text("Update");
                                         break;
@@ -168,7 +171,7 @@ $(function() {
 					var answerSpan = document.getElementById('static-math');
 					var problemDisplay = $('#problem-display');
 					var noOfFormulas = count + 1;
-					if(isAdd){
+					if(isAdd||(type!="formula")){
                     manageArray(contentArray,"latex1","FORMULA");
 					var content = $("<div class='display-formula' id='display-formula-"+noOfFormulas+"'></div>")
 					$("#problem-display").append(content);
@@ -184,7 +187,7 @@ $(function() {
 					MQ.StaticMath(staticMath);
 					lineCounter++;
 					}
-				else{
+				else if(!isAdd&&(type=="formula")){
                       $("#addformula").text("Add Formula to Problem Composition");
                        contentArray.forEach(function(item){
                            if(item.id == currPos){
@@ -205,7 +208,10 @@ $(function() {
 				showContent('controls');
 				$("#math-field1").focus();
                    $("#textlines").val('');
+                    $("#textact").text("Add a line of text to Problem Composition");
+                    //isAdd=false;
                    App.clearCanvas();
+                   $("#addshape").text("Add geometric shape to Problem Composition");
                     var pos = $(this).attr('data-pos');
                     currPos = parseInt(pos);
                     contentArray.forEach(function(item){
@@ -213,6 +219,7 @@ $(function() {
                             mathField.latex(item.content);
                             $("#addformula").text("Update");
                             isAdd=false;
+                            type="formula";
                         }
                     });
                });
@@ -235,7 +242,7 @@ $(function() {
 //					lineCounter++;
 					//displayProblem();
 //					contentArray.push(App.createObj("SHAPE", "SHAPE"));
-                    if(isAdd){
+                    if(isAdd||(type!=="shape")){
                     manageArray(contentArray,"SHAPE","SHAPE");
 					App.clearCanvas();
 					var canvasLength = count;
@@ -249,7 +256,7 @@ $(function() {
 
 					App.drawCanvasAt("canvas-"+canvasLength);
 					}
-					else if(!isAdd){
+					else if(!isAdd&&(type=="shape")){
                       $("#addshape").text("Add geometric shape to Problem Composition");
                       canvasLength=parseInt(curentpos)+1;
                      //for (i = 0; i <= contentArray.length; i++) {
@@ -282,7 +289,9 @@ $(function() {
                     showContent('shapes');
                     $("#myCanvas").focus();
                     $("#textlines").val('');
+                    $("#textact").text("Add a line of text to Problem Composition");
                     mathField.latex('');
+                    $("#addformula").text("Add Formula to Problem Composition");
                     //pos=$(this).closest(".display-canvas").attr('data-pos');
                     pos=$(this).attr('data-pos');
                     for (i = 0; i <= contentArray.length; i++) {
@@ -293,6 +302,7 @@ $(function() {
                           $("#myCanvas").focus();
                           $("#addshape").text("Update");
                           isAdd=false;
+                          type=shape;
                           break;
                        }
                     }
