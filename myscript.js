@@ -147,9 +147,8 @@ $(function() {
 				$('#problem-display').on('click', '#editText', function() {
 				showContent('textline');
 				   $("#textlines").focus();
-				   //$(this).addClass("active");
-                      $("#edit-formula").removeClass("active");
                       mathField.latex('');
+                      App.clearCanvas()
                 		pos=$(this).closest(".display-text").attr('data-pos');
                             for (i = 0; i <= contentArray.length; i++) {
                                if(contentArray[i].id==pos){
@@ -205,8 +204,8 @@ $(function() {
 				$('#problem-display').on('click', '#edit-formula', function() {
 				showContent('controls');
 				$("#math-field1").focus();
-                  $("#editText").removeClass("active");
                    $("#textlines").val('');
+                   App.clearCanvas()
                     var pos = $(this).attr('data-pos');
                     currPos = parseInt(pos);
                     contentArray.forEach(function(item){
@@ -282,6 +281,8 @@ $(function() {
                 $('#problem-display').on('click', '.edit-shape', function() {
                     showContent('shapes');
                     $("#myCanvas").focus();
+                    $("#textlines").val('');
+                    mathField.latex('');
                     //pos=$(this).closest(".display-canvas").attr('data-pos');
                     pos=$(this).attr('data-pos');
                     for (i = 0; i <= contentArray.length; i++) {
