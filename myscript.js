@@ -248,7 +248,7 @@ $(function() {
 					var canvasLength = count;
 					$("#problem-display").append("<div class='display-canvas' id=display-canvas-"+canvasLength+"></div>");
 					var fshape = $("<div id='canvas-"+canvasLength+"'></div>")
-                    var EditButton = $("<button class='edit-shape' data-pos='"+ (count-1) +"'>Edit</button>")
+                    var EditButton = $("<button id='edit-shape' data-pos='"+ (count-1) +"'>Edit</button>")
                     var DeleteButton = $("<button class='delete-shape' data-pos='"+ (count-1) +"'>Delete</button>")
                     $("#display-canvas-"+canvasLength).append(fshape);
                     $("#display-canvas-"+canvasLength).append(EditButton);
@@ -285,7 +285,7 @@ $(function() {
 
                 });
 
-                $('#problem-display').on('click', '.edit-shape', function() {
+                $('#problem-display').on('click', '#edit-shape', function() {
                     showContent('shapes');
                     $("#myCanvas").focus();
                     $("#textlines").val('');
@@ -294,6 +294,7 @@ $(function() {
                     $("#addformula").text("Add Formula to Problem Composition");
                     //pos=$(this).closest(".display-canvas").attr('data-pos');
                     pos=$(this).attr('data-pos');
+                    curentpos = parseInt(pos);
                     for (i = 0; i <= contentArray.length; i++) {
                        if(contentArray[i].id==pos){
                           App.editCanvasAt("myCanvas",contentArray[i]);
@@ -302,8 +303,8 @@ $(function() {
                           $("#myCanvas").focus();
                           $("#addshape").text("Update");
                           isAdd=false;
-                          type=shape;
-                          break;
+                         // break;
+                          type="shape";
                        }
                     }
                 });
