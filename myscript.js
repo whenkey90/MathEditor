@@ -262,7 +262,7 @@ $(function() {
                      //for (i = 0; i <= contentArray.length; i++) {
                       contentArray.forEach(function(item){
                       if(item.id == curentpos){
-                        contentArray[id].content=$('#myCanvas').val();
+                        contentArray[id].content=$('#myCanvas').val('');
 					    App.editCanvasAt("canvas-"+(contentArray[id].id+1), contentArray[id]);//break;
                         App.clearCanvas();
                         curentpos=0;
@@ -274,7 +274,7 @@ $(function() {
 				});
 				$('#problem-display').on('click', '.delete-shape', function() {
                     var pos=$(this).attr('data-pos');
-                    curentpos=parseInt(pos);
+                    //curentpos=parseInt(pos);
                      for (i = 0; i <= contentArray.length; i++) {
                             if(contentArray[i].id==pos){
                                 contentArray.splice(i,1);
