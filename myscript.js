@@ -248,7 +248,7 @@ $(function() {
 					var canvasLength = count;
 					$("#problem-display").append("<div class='display-canvas' id=display-canvas-"+canvasLength+"></div>");
 					var fshape = $("<div id='canvas-"+canvasLength+"'></div>")
-                    var EditButton = $("<button id='edit-shape' data-pos='"+ (count-1) +"'>Edit</button>")
+                    var EditButton = $("<button class='edit-shape' data-pos='"+ (count-1) +"'>Edit</button>")
                     var DeleteButton = $("<button class='delete-shape' data-pos='"+ (count-1) +"'>Delete</button>")
                     $("#display-canvas-"+canvasLength).append(fshape);
                     $("#display-canvas-"+canvasLength).append(EditButton);
@@ -260,9 +260,9 @@ $(function() {
                       $("#addshape").text("Add geometric shape to Problem Composition");
                       canvasLength=parseInt(curentpos)+1;
                      //for (i = 0; i <= contentArray.length; i++) {
-                      contentArray.forEach(function(item){
+                      contentArray.forEach(function(item,id){
                       if(item.id == curentpos){
-                        contentArray[id].content=$('#myCanvas').val('');
+                        contentArray[id].content=$('#myCanvas').val('');//change
 					    App.editCanvasAt("canvas-"+(contentArray[id].id+1), contentArray[id]);//break;
                         App.clearCanvas();
                         curentpos=0;
@@ -274,7 +274,7 @@ $(function() {
 				});
 				$('#problem-display').on('click', '.delete-shape', function() {
                     var pos=$(this).attr('data-pos');
-                    //curentpos=parseInt(pos);
+                    //curentpos=parseInt(pos);//change
                      for (i = 0; i <= contentArray.length; i++) {
                             if(contentArray[i].id==pos){
                                 contentArray.splice(i,1);
@@ -285,7 +285,7 @@ $(function() {
 
                 });
 
-                $('#problem-display').on('click', '#edit-shape', function() {
+                $('#problem-display').on('click', '.edit-shape', function() {
                     showContent('shapes');
                     $("#myCanvas").focus();
                     $("#textlines").val('');
@@ -295,15 +295,13 @@ $(function() {
                     //pos=$(this).closest(".display-canvas").attr('data-pos');
                     pos=$(this).attr('data-pos');
                     curentpos = parseInt(pos);
-                    for (i = 0; i <= contentArray.length; i++) {
-                       if(contentArray[i].id==pos){
+                    for (i = 0; i < contentArray.length; i++) {
+                          if(contentArray[i].id==curentpos){
                           App.editCanvasAt("myCanvas",contentArray[i]);
                           $('#myCanvas').val(contentArray[i].content);
                           isAdd=false;
                           $("#myCanvas").focus();
                           $("#addshape").text("Update");
-                          isAdd=false;
-                         // break;
                           type="shape";
                        }
                     }
@@ -600,7 +598,7 @@ var App = {
         if(typeof G_vmlCanvasManager != 'undefined') {
         	canvas = G_vmlCanvasManager.initElement(canvas);
         }
-        var context = canvas[0].getContext('2d');;
+        var context = canvas[0].getContext('2d');
         context.strokeStyle = "#df4b26";
         context.lineJoin = "round";
         context.lineWidth = 5;
