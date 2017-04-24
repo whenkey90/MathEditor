@@ -293,6 +293,7 @@ $(function() {
                     mathField.latex('');
                     $("#addformula").text("Add Formula to Problem Composition");
                     //pos=$(this).closest(".display-canvas").attr('data-pos');
+                    App.clearCanvas();
                     pos=$(this).attr('data-pos');
                     curentpos = parseInt(pos);
                     for (i = 0; i < contentArray.length; i++) {
@@ -516,7 +517,7 @@ var App = {
         });
         $('#canvas').mousemove(function(e){
           if(paint){
-            App.addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+            App.addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, false);
             App.redraw();
           }
         });
